@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dados do HubSpot</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+    .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 600px; margin: auto; }
+    h2 { color: #0B5CAD; }
+    strong { color: #333; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Dados do HubSpot</h2>
+    <div id="result">Carregando...</div>
+  </div>
+
+  <script>
+    fetch('/api/contact?name=João%20Silva')
+      .then(res => res.json())
+      .then(data => {
+        const el = document.getElementById('result');
+        if (data.error) {
+          el.innerHTML = "<strong>Erro:</strong> " + data.error;
+        } else {
+          el.innerHTML = `
+            <p><strong>ID do Contato:</strong> ${data.id}</p>
+            <p><strong>Nome:</strong> ${data.name}</p>
+            <p><strong>E-mail:</strong> ${data.email}</p>
+            <p><strong>Telefone:</strong> ${data.phone}</p>
+          `;
+        }
+      });
+  </script>
+</body>
+</html>
